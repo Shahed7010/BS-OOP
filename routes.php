@@ -2,6 +2,6 @@
 
 $router->get('/', 'controllers/index.php');
 
-$router->get('/category', 'controllers/category/Category.php');
+$router->get('/category', 'controllers/category/CategoryController.php');
 
-$router->get('/category-item', 'controllers/category/CategoryItem.php');
+$router->get('/category-item', 'controllers/category/CategoryItemController.php');

@@ -40,7 +40,7 @@
                 <?php foreach ($categories as $cat) : ?>
                     <tr>
                         <td><?= $cat['Name'] ?></td>
-                        <td><?= count($cat['items']) ?></td>
+                        <td><?= $cat['items_count'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

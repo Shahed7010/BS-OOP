@@ -7,44 +7,47 @@
 
     <title>Category</title>
 
-    <!-- Fonts -->
-    <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-    </style>
 </head>
 
 </head>
 
 <body>
-    <div style="display: flex;  justify-content: center;">
-        <h2>Categories with total item</h2>
+    <div style="display: flex; justify-content: center">
+        <h2>Category list with Item count.</h2>
     </div>
 
-    <div style="display: flex; justify-content: center;">
-        <table class="table" style="width: 40%">
-            <thead>
-                <tr>
-                    <th scope="col">Category Name</th>
-                    <th scope="col">Total Items</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($categories as $cat) : ?>
-                    <tr>
-                        <td><?= $cat['Name'] ?></td>
-                        <td><?= count($cat['items']) ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+    <div style="margin-left: 20%">
+
+        <?php
+        function countChildrenInArray(array $array)
+        {
+            $count = 0;
+            foreach ($array as $item) {
+                if (count($item['children'])) {
+                    $count += countChildrenInArray($item['children']);
+                }
+                $count += count($item['items']) ?? 0;
+            }
+            return $count;
+        }
+        function printArrayAsList($categories)
+        {
+            echo '<ul>';
+            foreach ($categories as $cat) {
+                echo '<li>' . $cat['Name'];
+                if (count($cat['children'])) {
+                    echo "(" . countChildrenInArray($cat['children']) + count($cat['items']) . ")" . '</li>';
+                    printArrayAsList($cat['children']);
+                } else {
+                    echo "(" . count($cat['items']) . ")";
+                }
+            }
+            echo '</ul><br>';
+        }
+        printArrayAsList($categories);
+
+        ?>
+
     </div>
 
 </body>
